@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<header>
+    {% block header %}
+    {% endblock %}
+</header>
+
+<main>
+    {% block main %}
+    {% endblock %}
+</main>
+
+<footer>
+    {% block footer %}
+    {% endblock %}
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

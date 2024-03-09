@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %}Flask - Online Chatroom{% endblock %}
+{% block header %}
+        <div>
+            <h1>Header</h1>
+        </div>
+{% endblock %}
+{% block main %}
+        <div>
+            <form method="POST" action="http://delnondy.alwaysdata.net/devweb/param">
+                <fieldset>
+                    <legend>Login Form (POST)</legend>
+                    <label>Login : <input type="text" name="login" placeholder=""> </label><br>
+                    <label>Password : <input type="password" name="password" placeholder=""> </label><br>
+                    <button type="submit">Login</button>
+                </fieldset>
+            </form>
+        </div>
+{% endblock %}
+{% block footer %}
+        <div>
+            <h1>Footer</h1>
+        </div>
+{% endblock %}

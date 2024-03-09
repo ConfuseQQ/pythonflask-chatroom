@@ -2,7 +2,7 @@
 {% block title %}Flask - Online Chatroom{% endblock %}
 {% block header %}
         <div>
-            <h1>Header</h1>
+            <h1>Login Page</h1>
         </div>
 {% endblock %}
 {% block main %}
@@ -10,16 +10,10 @@
             <form method="POST">
                 <br>
                 <fieldset>
-                    <legend>Login Form (POST)</legend>
                     <label>Login : <input type="text" name="username" placeholder=""> </label><br>
                     <label>Password : <input type="password" name="password" placeholder=""> </label><br>
                     <button type="submit">Login</button>
                 </fieldset>
             </form>
-        </div>
-{% endblock %}
-{% block footer %}
-        <div>
-            <h1>Footer</h1>
         </div>
 {% endblock %}

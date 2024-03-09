@@ -2,18 +2,18 @@
 {% block title %}Flask - Online Chatroom{% endblock %}
 {% block header %}
         <div>
-            <h1>Header</h1>
+            <h1>Welcome to my Flask Chatroom!</h1>
         </div>
 {% endblock %}
 {% block main %}
         <div>
-            <h1>Index Page</h1>
-            <a href="{{ url_for('login') }}">Login</a>
-            <a href="{{ url_for('about') }}">About</a>
+            <h1>Navigation Page</h1>
+            <h3><a href="{{ url_for('login') }}">Login</a></h3><br>
+            <h3><a href="{{ url_for('about') }}">About</a></h3>
         </div>
 {% endblock %}
 {% block footer %}
         <div>
-            <h1>Footer</h1>
+            <h5>Copyright &copy; 2024 </h5>
         </div>
 {% endblock %}

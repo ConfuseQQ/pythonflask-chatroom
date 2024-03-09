@@ -4,7 +4,8 @@ import flask_login
 app = flask.Flask(__name__)
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
-users = {"confuseq": {"password": "secret"}} #
+app.secret_key = "4e3c1a14d4b34690ac85c7c4f213869d"
+users = {"confuseq": {"password": "secret"}}  # Temporary way of storing users, will be put in SQLite DB later
 
 
 class User(flask_login.UserMixin):
@@ -68,7 +69,7 @@ def logged():
 @app.route("/logout/")
 def logout():
     flask_login.logout_user()
-    return flask.render_template("logged.html")
+    return flask.render_template("logout.html")
 
 
 

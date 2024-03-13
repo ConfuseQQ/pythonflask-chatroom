@@ -1,11 +1,12 @@
 import flask
 import flask_login
+import db_request
 
 app = flask.Flask(__name__)
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 app.secret_key = "4e3c1a14d4b34690ac85c7c4f213869d"
-users = {"confuseq": {"password": "secret"}}  # Temporary way of storing users, will be put in SQLite DB later
+users = db_request.get_users()
 
 
 class User(flask_login.UserMixin):
@@ -52,7 +53,7 @@ def login():
         return flask.render_template("login.html")
     username = flask.request.form["username"]
     password = flask.request.form["password"]
-    if username in users and password == users[username]["password"]:
+    if username in users and password == db_request.get_password(username):
         user = User()
         user.id = username
         flask_login.login_user(user)

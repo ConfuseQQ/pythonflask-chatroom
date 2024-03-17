@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block header %}
+    <div>
+        <h3 class="links"><a href="{{ url_for('hub') }}">Chatroom Hub</a> <a href="{{ url_for('logout') }}">Logout</a></h3>
+    </div>
+{% endblock %}
+{% block main %}
+    <div>
+        <h1>Welcome, {{ username }}!</h1>
+    </div>
+{% endblock %}

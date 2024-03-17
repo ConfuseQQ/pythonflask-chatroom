@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block header %}
+    <div>
+        <h3 class="links"><a href="{{ url_for('hub') }}">Chatroom Hub</a> <a href="{{ url_for('logout') }}">Logout</a></h3>
+    </div>
+    <h1>Welcome to the Room {{ room }}!</h1>
+{% endblock %}
+{% block main %}
+    <div class="message-box">
+        <div class="messages" id="messages">
+
+        </div>
+        <div class="inputs">
+            <label><input type="text" rows="3" placeholder="Message" name="message" id="message"/></label>
+            <button type="button" name="send" id="send-btn" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var socketio = io();
+
+        const sendMessage = () => {
+            console.log("send");
+        }
+    </script>
+{% endblock %}

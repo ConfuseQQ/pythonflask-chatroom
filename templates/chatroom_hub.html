@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block header %}
+    <div>
+        <h3 class="links"><a href="{{ url_for('userpanel') }}">User panel</a> <a
+                href="{{ url_for('logout') }}">Logout</a></h3>
+    </div>
+{% endblock %}
+{% block main %}
+    <div class="content">
+        <form method="POST" class="buttons">
+            <h1>Enter The Chat room</h1>
+            <div class="join">
+                <label>Room ID : <input type="text" name="code" value="{{ code }}"/></label>
+                <button type="submit" name="join">Join a Room</button>
+            </div>
+            <button type="submit" name="create">Create a Room</button>
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

@@ -1,19 +1,16 @@
 {% extends "layout.html" %}
-{% block title %}Flask - Online Chatroom{% endblock %}
 {% block header %}
-        <div>
-            <h1>Login Page</h1>
-        </div>
+    <div>
+        <h1>Login Page</h1>
+    </div>
 {% endblock %}
 {% block main %}
-        <div>
-            <form method="POST">
-                <br>
-                <fieldset>
-                    <label>Login : <input type="text" name="username" placeholder=""> </label><br>
-                    <label>Password : <input type="password" name="password" placeholder=""> </label><br>
-                    <button type="submit">Login</button>
-                </fieldset>
-            </form>
-        </div>
+    <form method="POST" class="buttons">
+        <br>
+        <fieldset>
+            <label class="field">Login : <input type="text" name="username" placeholder="Username"/> </label><br>
+            <label class="field">Password : <input type="password" name="password" placeholder="Password"/> </label><br>
+            <button type="submit" class="middlebutton">Login</button>
+        </fieldset>
+    </form>
 {% endblock %}

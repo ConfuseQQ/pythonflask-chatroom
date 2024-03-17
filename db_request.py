@@ -1,21 +1,6 @@
 import sqlite3
 import base64
-
-
-def connect():
-    connect_db = sqlite3.connect("db.sqlite")
-    cursor = connect_db.cursor()
-    cursor.execute("SELECT * FROM users")
-    test = cursor.fetchall()
-    return test
-
-
-def read():
-    pass
-
-
-def write():
-    pass
+import socketio
 
 
 def get_users():

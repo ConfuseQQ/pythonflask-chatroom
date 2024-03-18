@@ -82,6 +82,14 @@ body {
 
 }
 
+.name {
+    color: lightgray;
+}
+
+.msg {
+    color: white;
+}
+
 .messages {
     overflow-y: scroll;
     flex: 1;

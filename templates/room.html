@@ -3,7 +3,7 @@
     <div>
         <h3 class="links"><a href="{{ url_for('hub') }}">Chatroom Hub</a> <a href="{{ url_for('logout') }}">Logout</a></h3>
     </div>
-    <h1>Welcome to the Room {{ room }}!</h1>
+    <h1>Welcome to the Room {{ code }}!</h1>
 {% endblock %}
 {% block main %}
     <div class="message-box">
@@ -11,15 +11,27 @@
 
         </div>
         <div class="inputs">
-            <label><input type="text" rows="3" placeholder="Message" name="message" id="message"/></label>
+            <label><input type="text" placeholder="Message" name="message" id="message"/></label>
             <button type="button" name="send" id="send-btn" onclick="sendMessage()">Send</button>
         </div>
     </div>
     <script type="text/javascript">
         var socketio = io();
 
+        const messages = document.getElementById("messages")
+
+        const createMessage = (name, msg) => {
+            const content = `<div class=text><span class=muted>${new Date().toLocaleString()}</span> : <span class="msg"><strong class="name">${name}</strong>: ${msg}</span></div>`;
+            messages.innerHTML += content;
+        };
+        socketio.on("message", (data) => {
+            createMessage(data.name, data.message);
+        });
         const sendMessage = () => {
-            console.log("send");
-        }
+            const message = document.getElementById("message")
+            if (message.value == "") return;
+            socketio.emit("message", {data: message.value});
+            message.value = "";
+        };
     </script>
 {% endblock %}

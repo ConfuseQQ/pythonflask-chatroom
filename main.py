@@ -90,7 +90,6 @@ class USERAPP:
     @flask_login.login_required
     def hub():
         if flask.request.method == "POST":
-            # name = flask_login.current_user.id
             code = flask.request.form.get("code")
             join = flask.request.form.get("join", False)
             create = flask.request.form.get("create", False)
@@ -114,13 +113,26 @@ class USERAPP:
         if room is None or room not in INIT.rooms:
             return flask.redirect(flask.url_for("hub"))
 
-        return flask.render_template("room.html")
+        return flask.render_template("room.html", code=room)
 
     @staticmethod
-    @flask_login.login_required
-    @SocketIO.on("SocketIO", message="connect")
+    @INIT.socketio.on("message")
+    def message(data):
+        room = flask.session.get("room")
+        if room not in INIT.rooms:
+            return
+        content = {
+            "name": flask_login.current_user.id,
+            "message": data["data"]
+        }
+        send(content, to=room)
+        INIT.rooms[room]["messages"].append(content)
+        print(f"{flask_login.current_user.id} said: {data['data']}")
+
+    @staticmethod
+    @INIT.socketio.on("connect")
     def connect():
-        room = flask.request.args.get("room")
+        room = flask.session.get("room")
         name = flask_login.current_user.id
         if not room or not name:
             return
@@ -128,22 +140,22 @@ class USERAPP:
             leave_room(room)
             return
         join_room(room)
-        send({"name": name, "message": "has entered the room"}, to=room)
+        INIT.socketio.send({"name": name, "message": "has entered the room"}, to=room)
         INIT.rooms[room]["members"] += 1
         print(f"{name} has entered the room {room}")
 
     @staticmethod
-    @SocketIO.on(message="disconnect")
-    @flask_login.login_required
+    @INIT.socketio.on("disconnect")
     def disconnect():
-        room = flask.request.args.get("room")
+        room = flask.session.get("room")
         name = flask_login.current_user.id
         join_room(room)
         if room in INIT.rooms:
             INIT.rooms[room]["members"] -= 1
             if INIT.rooms[room]["members"] <= 0:
+                print(f"room {room} has been deleted")
                 del INIT.rooms[room]
-        send({"name": name, "message": "has left the room"}, to=room)
+        INIT.socketio.send({"name": name, "message": "has left the room"}, to=room)
         print(f"{name} has left the room {room}")
 
     @staticmethod
@@ -154,4 +166,4 @@ class USERAPP:
 
 
 if __name__ == '__main__':
-    INIT.app.run(debug=True, port=6969)
+    INIT.app.run(host="0.0.0.0", port=6969)
